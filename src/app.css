@@ -1,0 +1,16 @@
+body {
+	font-family: arial;
+	margin: 0;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 5%;
+	border-bottom: 1px solid;
+}
+
+header .logo {
+	font-size: 2rem;
+}
