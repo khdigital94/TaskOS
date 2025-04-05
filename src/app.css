@@ -1,16 +1,157 @@
 body {
 	font-family: arial;
 	margin: 0;
+	padding: 0 5% 50px 5%;
+	background: #f0f0f0;
+	position: relative;
+	--brand-color: #00d492;
+	--light-main: #ffffff;
+	--dark-main: #252525;
 }
 
 header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px 5%;
-	border-bottom: 1px solid;
+	padding: 20px 0;
 }
 
 header .logo {
 	font-size: 2rem;
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+}
+
+.taskSummary {
+	background: white;
+	padding: 20px;
+	border-radius: 15px;
+	display: flex;
+}
+
+.workspaceImage {
+	width: 50px;
+	height: 50px;
+	min-width: 50px;
+	border-radius: 100%;
+	border: 2px solid #e7e7e7;
+}
+
+.summaryContent {
+	width: 100%;
+	margin-left: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.taskSummary .header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.taskSummary h3 {
+	font-weight: 500;
+	margin: 0;
+}
+
+.taskSummary p {
+	font-weight: 600;
+	margin: 0;
+}
+
+.summaryBar {
+	height: 10px;
+	width: 100%;
+	background: var(--brand-color);
+	margin-top: 10px;
+	border-radius: 10px;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+	display: none;
+}
+
+.workspaceTitle {
+	margin: 0;
+}
+
+.catContainer {
+	display: flex;
+	flex-direction: row;
+	column-gap: 10px;
+	overflow: scroll;
+}
+
+.catButton {
+	padding: 10px 25px;
+	color: black;
+	background: var(--light-main);
+	border-radius: 20px;
+	border: none;
+}
+
+.catActive {
+	color: white;
+	background: var(--dark-main);
+}
+
+.taskContainer {
+	display: flex;
+	flex-direction: column;
+	row-gap: 15px;
+}
+
+.task {
+	padding: 20px;
+	background: white;
+	border-radius: 15px;
+}
+
+.task p {
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin: 0;
+}
+
+.taskFooter {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+}
+
+.taskFooter span {
+	font-size: 0.7rem;
+	padding: 5px 15px;
+	border-radius: 50px;
+}
+
+.taskFooter span:first-of-type {
+	background: #e7e7e7;
+}
+
+footer {
+	font-size: 0.8rem;
+	width: 100%;
+	text-align: center;
+	background: #252525;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+footer a {
+	color: var(--brand-color);
 }
