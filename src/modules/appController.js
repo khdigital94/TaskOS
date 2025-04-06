@@ -71,19 +71,19 @@ class Workspace {
 		this.id = id;
 		this.categories = [
 			{
-				name: "Persönlich",
+				name: "Personal",
 				tasks: [],
 			},
 			{
-				name: "Arbeit",
+				name: "Work",
 				tasks: [],
 			},
 			{
-				name: "Reisen",
+				name: "Travel",
 				tasks: [],
 			},
 			{
-				name: "Unterhaltung",
+				name: "Entertainment",
 				tasks: [],
 			},
 		];
