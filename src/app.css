@@ -96,11 +96,14 @@ header .logo {
 	background: var(--light-main);
 	border-radius: 20px;
 	border: none;
+	transition: 250ms ease-in-out;
+	cursor: pointer;
 }
 
 .catActive {
 	color: white;
 	background: var(--dark-main);
+	transition: 250ms ease-in-out;
 }
 
 .taskContainer {
@@ -116,15 +119,15 @@ header .logo {
 }
 
 .task p {
-	font-size: 1.2rem;
-	font-weight: 600;
+	font-size: 1.1rem;
+	font-weight: 500;
 	margin: 0;
 }
 
 .taskFooter {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 15px;
+	margin-top: 10px;
 }
 
 .taskFooter span {
@@ -133,8 +136,34 @@ header .logo {
 	border-radius: 50px;
 }
 
-.taskFooter span:first-of-type {
+.taskbadges {
+	display: flex;
+	flex-direction: row;
+	column-gap: 10px;
+}
+
+.taskbadges span {
+	height: 12.5px;
+	line-height: 12.5px;
+}
+
+.taskCategory {
 	background: #e7e7e7;
+}
+
+.priorityHigh {
+	background: #ff6467 !important;
+	color: white;
+}
+
+.priorityMedium {
+	background: #fd9a00 !important;
+	color: white;
+}
+
+.priorityLow {
+	background: var(--brand-color) !important;
+	color: white;
 }
 
 footer {
