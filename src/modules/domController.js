@@ -185,7 +185,7 @@ const domController = (() => {
 		});
 	};
 
-	return { loadWorkspace, setCurrentworkspace, getCurrentworkspace, filterTasksByCat, editTask };
+	return { loadWorkspace, setCurrentworkspace, getCurrentworkspace, setWorkspaceTasklist, filterTasksByCat, editTask };
 })();
 
 export { domController };
