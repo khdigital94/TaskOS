@@ -214,4 +214,67 @@ footer a {
 	background: white;
 	padding: 10px 15px;
 	border-radius: 7.5px;
+	position: relative;
+	overflow: hidden;
+	font-size: 0.8rem;
+}
+
+.menuContent .activeWS {
+	width: 5px;
+	height: 100%;
+	background: var(--brand-color);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.addNewWorkspace {
+	background: none !important;
+	border: 1px dashed #454545 !important;
+	text-align: center;
+	color: #454545;
+	padding: 0 !important;
+}
+
+.addNewWorkspaceBtn {
+	background: none;
+	border: none;
+	padding: 12.5px 15px;
+	width: 100%;
+}
+
+.submitDiv {
+	background: none !important;
+	padding: 0 !important;
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	width: 100%;
+}
+
+.submitDiv input {
+	padding: 10px;
+	background: none;
+	border: none;
+	border-bottom: 1px solid #d7d7d7;
+	font-size: 1rem;
+}
+
+.submitDiv input:focus {
+	appearance: none !important;
+}
+
+.submitDiv button {
+	background: var(--brand-color);
+	color: white;
+	font-size: 1rem;
+	font-weight: 600;
+	padding: 10px;
+	border-radius: 7.5px;
+	border: none;
+	cursor: pointer;
+}
+
+.hide {
+	display: none;
 }
