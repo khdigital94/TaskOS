@@ -5,8 +5,8 @@ import { domController } from "./modules/domController";
 document.addEventListener("DOMContentLoaded", () => {
 	appController.setToDos();
 
-	const workspace1 = new Workspace("Kevins Arbeitsplatz 😊", crypto.randomUUID());
-	const workspace2 = new Workspace("Mama & Papa's Workspace 🥰", crypto.randomUUID());
+	const workspace1 = new Workspace("My Workspace 🚀", crypto.randomUUID());
+	const workspace2 = new Workspace("Another Workspace ✅", crypto.randomUUID());
 	appController.addWorkspace(workspace1);
 	appController.addWorkspace(workspace2);
 
@@ -99,5 +99,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	overlay.addEventListener("click", () => {
 		sidebar.classList.remove("showMenu");
 		overlay.classList.remove("showOverlay");
+	});
+
+	const catContainer = document.querySelector(".catContainer");
+	catContainer.addEventListener("click", (event) => {
+		if (event.target.classList.contains("catButton")) {
+			domController.filterTasksByCat(event.target.textContent);
+		}
 	});
 });

@@ -2,6 +2,7 @@ import { appController } from "./appController";
 
 const domController = (() => {
 	let currentWorkspace;
+	const taskContainer = document.querySelector(".taskContainer");
 
 	const loadWorkspace = () => {
 		setWorkspaceTitle();
@@ -45,7 +46,6 @@ const domController = (() => {
 	const setWorkspaceTasklist = () => {
 		const workspaces = appController.getToDos();
 		const current = workspaces.find((ws) => ws.name.trim().toLowerCase() === currentWorkspace.name.trim().toLowerCase());
-		const taskContainer = document.querySelector(".taskContainer");
 		let taskArray = [];
 
 		taskContainer.innerHTML = "";
@@ -65,12 +65,67 @@ const domController = (() => {
                     <div class="task">
 					    <p>${task.name}</p>
 						<div class="taskFooter">
-							<span class="taskPriority">${task.priority}</span>
-							<span class="taskDueDate">${task.dueDate}</span>
+							<div class="taskbadges">
+								<span class="taskPriority priority${task.priority}">${task.priority}</span>
+								<span class="taskCategory">${task.category}</span>
+								<span class="taskCategory">🕓 ${task.dueDate}</span>
+							</div>
 						</div>
 					</div>
             `;
 		});
+	};
+
+	const filterTasksByCat = (cat) => {
+		console.log(cat + " was clicked!");
+
+		const workspaces = appController.getToDos();
+		let filteredTasks = [];
+
+		workspaces.forEach((workspace) => {
+			if (workspace.name === currentWorkspace.name) {
+				workspace.categories.forEach((category) => {
+					if (category.name === cat && cat !== "All") {
+						category.tasks.forEach((task) => {
+							filteredTasks.push(task);
+							console.log(`Showing tasks in category ${cat}`);
+						});
+					} else if (cat === "All") {
+						category.tasks.forEach((task) => {
+							filteredTasks.push(task);
+							console.log("Showing all tasks");
+						});
+					}
+				});
+			}
+		});
+
+		taskContainer.innerHTML = "";
+
+		filteredTasks.forEach((task) => {
+			taskContainer.innerHTML += `
+                    <div class="task">
+					    <p>${task.name}</p>
+						<div class="taskFooter">
+							<div class="taskbadges">
+								<span class="taskPriority priority${task.priority}">${task.priority}</span>
+								<span class="taskCategory">${task.category}</span>
+								<span class="taskCategory">🕓 ${task.dueDate}</span>
+							</div>
+						</div>
+					</div>
+            `;
+		});
+
+		const catButtons = document.querySelectorAll(".catButton");
+		catButtons.forEach((button) => {
+			button.classList.remove("catActive");
+			if (button.textContent === cat) {
+				button.classList.add("catActive");
+			}
+		});
+
+		console.log(filteredTasks);
 	};
 
 	const setMenu = () => {
@@ -101,7 +156,7 @@ const domController = (() => {
 		`;
 	};
 
-	return { loadWorkspace, setCurrentworkspace, getCurrentworkspace };
+	return { loadWorkspace, setCurrentworkspace, getCurrentworkspace, filterTasksByCat };
 })();
 
 export { domController };
