@@ -3,6 +3,7 @@ import { appController } from "./appController";
 const domController = (() => {
 	let currentWorkspace;
 	const taskContainer = document.querySelector(".taskContainer");
+	let currentCategory = "All";
 
 	const loadWorkspace = () => {
 		setWorkspaceTitle();
@@ -52,6 +53,7 @@ const domController = (() => {
 
 		workspaces.forEach((workspace) => {
 			if (workspace.name.trim().toLowerCase() === currentWorkspace.name.trim().toLowerCase()) {
+				// Erstmal nur die Aufgaben der aktuellen Kategorie
 				workspace.categories.forEach((category) => {
 					category.tasks.forEach((task) => {
 						taskArray.push(task);
@@ -59,6 +61,10 @@ const domController = (() => {
 				});
 			}
 		});
+
+		if (currentCategory !== "All") {
+			taskArray = taskArray.filter((task) => task.category === currentCategory);
+		}
 
 		taskArray.forEach((task) => {
 			taskContainer.innerHTML += `
@@ -77,23 +83,17 @@ const domController = (() => {
 	};
 
 	const filterTasksByCat = (cat) => {
-		console.log(cat + " was clicked!");
-
 		const workspaces = appController.getToDos();
+		currentCategory = cat;
 		let filteredTasks = [];
 
 		workspaces.forEach((workspace) => {
 			if (workspace.name === currentWorkspace.name) {
 				workspace.categories.forEach((category) => {
-					if (category.name === cat && cat !== "All") {
+					// Wenn die Kategorie mit der gewählten übereinstimmt, oder "All" gewählt wurde
+					if (cat === "All" || category.name === cat) {
 						category.tasks.forEach((task) => {
-							filteredTasks.push(task);
-							console.log(`Showing tasks in category ${cat}`);
-						});
-					} else if (cat === "All") {
-						category.tasks.forEach((task) => {
-							filteredTasks.push(task);
-							console.log("Showing all tasks");
+							filteredTasks.push(task); // Tasks zur Liste hinzufügen
 						});
 					}
 				});
@@ -104,7 +104,7 @@ const domController = (() => {
 
 		filteredTasks.forEach((task) => {
 			taskContainer.innerHTML += `
-                    <div class="task">
+      				<div class="task" data-id="${task.id}">
 					    <p>${task.name}</p>
 						<div class="taskFooter">
 							<div class="taskbadges">
@@ -114,7 +114,7 @@ const domController = (() => {
 							</div>
 						</div>
 					</div>
-            `;
+    `;
 		});
 
 		const catButtons = document.querySelectorAll(".catButton");
@@ -124,8 +124,6 @@ const domController = (() => {
 				button.classList.add("catActive");
 			}
 		});
-
-		console.log(filteredTasks);
 	};
 
 	const setMenu = () => {
