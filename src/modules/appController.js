@@ -60,14 +60,23 @@ const appController = (() => {
 
 		workspaces.forEach((workspace) => {
 			workspace.categories.forEach((category) => {
-				category.tasks.forEach((task) => {
-					if (task.id === obj.id) {
-						console.log("klappt!!!");
+				const taskIndex = category.tasks.findIndex((task) => task.id === obj.id);
+				if (taskIndex !== -1) {
+					const task = category.tasks[taskIndex];
+					if (keyToChange === "category") {
+						category.tasks.splice(taskIndex, 1);
+						const newCategory = workspace.categories.find((cat) => cat.name === newValue);
+						if (newCategory) {
+							task.category = newValue;
+							newCategory.tasks.push(task);
+						} else {
+							console.warn("Neue Kategorie nicht gefunden:", newValue);
+						}
+					} else {
 						task[keyToChange] = newValue;
-						setToDos(workspaces);
-						console.log(task[keyToChange]);
 					}
-				});
+					setToDos(workspaces);
+				}
 			});
 		});
 	};
