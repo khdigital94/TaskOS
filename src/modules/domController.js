@@ -1,9 +1,9 @@
 import { appController } from "./appController";
 
 const domController = (() => {
-	let currentWorkspace;
-	const taskContainer = document.querySelector(".taskContainer");
+	const qs = (element) => document.querySelector(element);
 	let currentCategory = "All";
+	let currentWorkspace;
 
 	const loadWorkspace = () => {
 		setWorkspaceTitle();
@@ -22,21 +22,19 @@ const domController = (() => {
 	};
 
 	const setWorkspaceTitle = () => {
-		const title = document.querySelector(".workspaceTitle");
-		title.textContent = currentWorkspace.name;
+		qs(".workspaceTitle").textContent = currentWorkspace.name;
 	};
 
 	const setWorkspaceCategories = () => {
-		const catContainer = document.querySelector(".catContainer");
 		const workspaces = appController.getToDos();
 
-		catContainer.innerHTML = "";
-		catContainer.innerHTML = `<button class="catButton catActive">All</button>`;
+		qs(".catContainer").innerHTML = "";
+		qs(".catContainer").innerHTML = `<button class="catButton catActive">All</button>`;
 
 		workspaces.forEach((workspace) => {
 			if (workspace.name.trim().toLowerCase() === currentWorkspace.name.trim().toLowerCase()) {
 				workspace.categories.forEach((category) => {
-					catContainer.innerHTML += `
+					qs(".catContainer").innerHTML += `
                         <button class="catButton">${category.name}</button>
                     `;
 				});
@@ -49,7 +47,7 @@ const domController = (() => {
 		const current = workspaces.find((ws) => ws.name.trim().toLowerCase() === currentWorkspace.name.trim().toLowerCase());
 		let taskArray = [];
 
-		taskContainer.innerHTML = "";
+		qs(".taskContainer").innerHTML = "";
 
 		workspaces.forEach((workspace) => {
 			if (workspace.name.trim().toLowerCase() === currentWorkspace.name.trim().toLowerCase()) {
@@ -67,7 +65,7 @@ const domController = (() => {
 		}
 
 		taskArray.forEach((task) => {
-			taskContainer.innerHTML += `
+			qs(".taskContainer").innerHTML += `
                     <div class="task" data-id="${task.id}">
 					    <p>${task.name}</p>
 						<div class="taskFooter">
@@ -100,10 +98,10 @@ const domController = (() => {
 			}
 		});
 
-		taskContainer.innerHTML = "";
+		qs(".taskContainer").innerHTML = "";
 
 		filteredTasks.forEach((task) => {
-			taskContainer.innerHTML += `
+			qs(".taskContainer").innerHTML += `
       				<div class="task" data-id="${task.id}">
 					    <p>${task.name}</p>
 						<div class="taskFooter">
@@ -129,12 +127,11 @@ const domController = (() => {
 	const setMenu = () => {
 		const workspaces = appController.getToDos();
 		const currentWorkspace = getCurrentworkspace();
-		const menu = document.querySelector(".menu");
 
-		menu.innerHTML = "";
+		qs(".menu").innerHTML = "";
 
 		workspaces.forEach((workspace) => {
-			menu.innerHTML += `
+			qs(".menu").innerHTML += `
 				<li class="menuItem">
 					<div class="${workspace.id === currentWorkspace.id ? "activeWS" : null}"></div>
 					${workspace.name}
@@ -142,7 +139,7 @@ const domController = (() => {
 			`;
 		});
 
-		menu.innerHTML += `
+		qs(".menu").innerHTML += `
 				<li class="addNewWorkspace">
 					<button class="addNewWorkspaceBtn">Create New Workspace</button>
 				</li>
@@ -156,26 +153,18 @@ const domController = (() => {
 
 	const editTask = (openedTask) => {
 		const workspaces = appController.getToDos();
-		const popup = document.querySelector(".newTaskPopup");
-
-		const formTaskName = document.querySelector("#taskName");
-		const formTaskDescription = document.querySelector("#taskDescription");
-		const formTaskCategory = document.querySelector("#taskCategory");
-		const formTaskPriority = document.querySelector("#taskPriority");
-		const formTaskDueDate = document.querySelector("#taskDueDate");
-
-		popup.classList.toggle("hide");
+		qs(".newTaskPopup").classList.toggle("hide");
 
 		workspaces.forEach((workspace) => {
 			if (workspace.name === currentWorkspace.name) {
 				workspace.categories.forEach((category) => {
 					category.tasks.forEach((task) => {
 						if (task.id === openedTask.dataset.id) {
-							formTaskName.value = task.name;
-							formTaskDescription.value = task.description;
-							formTaskCategory.value = task.category;
-							formTaskPriority.value = task.priority;
-							formTaskDueDate.value = task.dueDate; // MUSS NOCH GEFIXED WERDEN
+							qs("#taskName").value = task.name;
+							qs("#taskDescription").value = task.description;
+							qs("#taskCategory").value = task.category;
+							qs("#taskPriority").value = task.priority;
+							qs("#taskDueDate").value = task.dueDate; // MUSS NOCH GEFIXED WERDEN
 						}
 					});
 				});
