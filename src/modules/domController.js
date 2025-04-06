@@ -62,7 +62,7 @@ const domController = (() => {
 
 		taskArray.forEach((task) => {
 			taskContainer.innerHTML += `
-                    <div class="task">
+                    <div class="task" data-id="${task.id}">
 					    <p>${task.name}</p>
 						<div class="taskFooter">
 							<div class="taskbadges">
@@ -156,7 +156,36 @@ const domController = (() => {
 		`;
 	};
 
-	return { loadWorkspace, setCurrentworkspace, getCurrentworkspace, filterTasksByCat };
+	const editTask = (openedTask) => {
+		const workspaces = appController.getToDos();
+		const popup = document.querySelector(".newTaskPopup");
+
+		const formTaskName = document.querySelector("#taskName");
+		const formTaskDescription = document.querySelector("#taskDescription");
+		const formTaskCategory = document.querySelector("#taskCategory");
+		const formTaskPriority = document.querySelector("#taskPriority");
+		const formTaskDueDate = document.querySelector("#taskDueDate");
+
+		popup.classList.toggle("hide");
+
+		workspaces.forEach((workspace) => {
+			if (workspace.name === currentWorkspace.name) {
+				workspace.categories.forEach((category) => {
+					category.tasks.forEach((task) => {
+						if (task.id === openedTask.dataset.id) {
+							formTaskName.value = task.name;
+							formTaskDescription.value = task.description;
+							formTaskCategory.value = task.category;
+							formTaskPriority.value = task.priority;
+							formTaskDueDate.value = task.dueDate; // MUSS NOCH GEFIXED WERDEN
+						}
+					});
+				});
+			}
+		});
+	};
+
+	return { loadWorkspace, setCurrentworkspace, getCurrentworkspace, filterTasksByCat, editTask };
 })();
 
 export { domController };
