@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
-	// Editing existing Task
+	// Öffnet die Target Task
 	let taskId;
 
 	qs(".taskContainer").addEventListener("click", (event) => {
@@ -108,8 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
+	// Bearbeiten
 	qs(".popup").addEventListener("change", (event) => {
-		const workspaces = appController.getToDos();
+		let workspaces = appController.getToDos();
 		const key = event.target.dataset.key;
 
 		if (event.target.closest(".formInput")) {
@@ -123,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				});
 			});
 		}
+		domController.setWorkspaceTasklist();
 	});
 
 	qs(".popupOverlay").addEventListener("click", () => {
