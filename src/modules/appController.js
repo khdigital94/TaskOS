@@ -70,7 +70,6 @@ const appController = (() => {
 							task.category = newValue;
 							newCategory.tasks.push(task);
 						} else {
-							console.warn("Neue Kategorie nicht gefunden:", newValue);
 						}
 					} else {
 						task[keyToChange] = newValue;
@@ -114,31 +113,6 @@ class Workspace {
 				tasks: [],
 			},
 		];
-	}
-
-	changeName(newName) {
-		this.name = newName;
-	}
-
-	addCategory(newCategory) {
-		this.categories.push({ name: newCategory, tasks: [] });
-		this.updateWorkspace();
-	}
-
-	removeCategory(oldCategory) {
-		this.categories = this.categories.filter((category) => category !== oldCategory);
-		this.updateWorkspace();
-	}
-
-	updateWorkspace() {
-		const workspaces = appController.getToDos();
-		console.log(workspaces);
-		const index = workspaces.findIndex((workspace) => workspace.id == this.id);
-
-		if (index !== -1) {
-			workspaces[index] = this;
-			appController.setToDos(workspaces);
-		}
 	}
 }
 
