@@ -96,6 +96,7 @@ const domController = (() => {
 				<li class="submitDiv hide">
 					<input class="newWsInput" type="Text" placeholder="Enter a workspace name" />
 					<button class="newWsSubmitBtn">Submit</button>
+					<span class="errorMessage"></span>
 				</li>
 		`;
 	};

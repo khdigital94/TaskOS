@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const submitDiv = document.querySelector(".submitDiv");
 		const addNewDiv = document.querySelector(".addNewWorkspace");
 		const newWsInput = document.querySelector(".newWsInput");
+		const errorMessage = document.querySelector(".errorMessage");
 
 		if (event.target.classList.contains("menuItem")) {
 			// Opens respective workspace
@@ -84,8 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
 			newWsInput.focus();
 		} else if (event.target.classList.contains("newWsSubmitBtn")) {
 			// Submits new workspace
-			appController.addWorkspace(new Workspace(newWsInput.value, crypto.randomUUID()));
-			domController.loadWorkspace();
+			if (!newWsInput.value) {
+				errorMessage.textContent = "A name is required to create a workspace.";
+			} else if (newWsInput.value.length > 50) {
+				errorMessage.textContent = "The name must be less than 50 characters.";
+			} else {
+				appController.addWorkspace(new Workspace(newWsInput.value.toString(), crypto.randomUUID()));
+				domController.loadWorkspace();
+			}
 		}
 	});
 

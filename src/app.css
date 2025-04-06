@@ -184,7 +184,7 @@ footer a {
 	right: 0;
 	background: #f7f7f7;
 	width: 60%;
-	padding: 50px;
+	padding: 50px 30px;
 	transform: translateX(100%);
 	transition: 250ms ease-in-out;
 }
@@ -214,9 +214,15 @@ footer a {
 	background: white;
 	padding: 10px 15px;
 	border-radius: 7.5px;
+	vertical-align: center;
 	position: relative;
 	overflow: hidden;
 	font-size: 0.8rem;
+}
+
+.menuItem {
+	min-height: 40px;
+	line-height: 40px;
 }
 
 .menuContent .activeWS {
@@ -273,6 +279,10 @@ footer a {
 	border-radius: 7.5px;
 	border: none;
 	cursor: pointer;
+}
+
+.errorMessage {
+	text-align: center;
 }
 
 .hide {
