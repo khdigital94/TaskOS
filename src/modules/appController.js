@@ -55,6 +55,23 @@ const appController = (() => {
 		setToDos(workspaces);
 	};
 
+	const updateTask = (obj, keyToChange, newValue) => {
+		const workspaces = getToDos();
+
+		workspaces.forEach((workspace) => {
+			workspace.categories.forEach((category) => {
+				category.tasks.forEach((task) => {
+					if (task.id === obj.id) {
+						console.log("klappt!!!");
+						task[keyToChange] = newValue;
+						setToDos(workspaces);
+						console.log(task[keyToChange]);
+					}
+				});
+			});
+		});
+	};
+
 	return {
 		setToDos,
 		getToDos,
@@ -62,6 +79,7 @@ const appController = (() => {
 		removeWorkspace,
 		addTask,
 		removeTask,
+		updateTask,
 	};
 })();
 
@@ -125,46 +143,6 @@ class Task {
 		this.dueDate = dueDate;
 		this.priority = priority;
 		this.checklist = checklist;
-	}
-
-	setName(newName) {
-		this.name = newName;
-		this.updateTask();
-	}
-
-	setCategory(newCategory) {
-		this.category = this.category;
-		this.updateTask();
-	}
-
-	setDescription(newDescription) {
-		this.description = newDescription;
-		this.updateTask();
-	}
-
-	setDueDate(newDate) {
-		this.dueDate = newDate;
-		this.updateTask();
-	}
-
-	setPriority(priority) {
-		this.priority = priority;
-		this.updateTask();
-	}
-
-	updateTask() {
-		const workspaces = appController.getToDos();
-
-		workspaces.forEach((workspace) => {
-			workspace.categories.forEach((category) => {
-				const index = category.tasks.findIndex((task) => task.id === this.id);
-
-				if (index !== -1) {
-					category.tasks[index] = this;
-					appController.setToDos(workspaces);
-				}
-			});
-		});
 	}
 }
 
