@@ -1,5 +1,6 @@
 // webpack.config.js
 const path = require("path");
+const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
@@ -12,15 +13,15 @@ module.exports = {
 	},
 	devtool: "eval-source-map",
 	devServer: {
-		host: "192.168.178.99",
-		port: 8080,
-		https: {
-			key: fs.readFileSync(path.resolve(__dirname, "ssl/key.pem")),
-			cert: fs.readFileSync(path.resolve(__dirname, "ssl/cert.pem")),
+		server: {
+			type: "https",
+			options: {
+				key: fs.readFileSync("./ssl/key.pem"),
+				cert: fs.readFileSync("./ssl/cert.pem"),
+			},
 		},
+		host: "192.168.178.99",
 		watchFiles: ["./src/template.html"],
-		hot: true,
-		open: true,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
